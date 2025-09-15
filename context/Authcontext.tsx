@@ -116,6 +116,8 @@ export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
     if (error) {
       console.error("there was an error: ", error);
     }
+
+    redirect("/auth/sign-in");
   };
 
   //listen for changes

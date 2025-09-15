@@ -27,7 +27,7 @@ export default function Page() {
           Already have an account?{" "}
           <Link
             className="font-medium text-indigo-600 hover:text-indigo-500"
-            href={"/auth/signin"}
+            href={"/auth/sign-in"}
           >
             Sign in
           </Link>
