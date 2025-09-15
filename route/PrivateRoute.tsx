@@ -1,17 +1,26 @@
 "use client";
-import { type PropsWithChildren } from "react";
+import { PropsWithChildren, useEffect } from "react";
 import { userAuth } from "../context/Authcontext";
-import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 type PrivateRoutePropsType = PropsWithChildren;
+
 const PrivateRoute = ({ children }: PrivateRoutePropsType) => {
   const { session } = userAuth();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (session === null) {
+      router.push("/sign-in");
+    }
+  }, [session, router]);
 
   if (session === undefined) {
     return <p>Loading ...</p>;
   }
 
-  return <>{session ? <>{children} </> : redirect("/")}</>;
+  // only render children if session exists
+  return <>{session ? children : null}</>;
 };
 
 export default PrivateRoute;

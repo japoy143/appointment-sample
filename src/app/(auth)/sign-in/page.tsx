@@ -32,7 +32,7 @@ export default function Page() {
           {"Don't have an account? "}
           <Link
             className="font-medium text-indigo-600 hover:text-indigo-500"
-            href={"/auth/sign-up"}
+            href={"/sign-up"}
           >
             Sign up
           </Link>

@@ -1,6 +1,5 @@
 "use client";
 import supabase from "@/app/supabase-client";
-import { redirect } from "next/navigation";
 import {
   createContext,
   useContext,
@@ -10,6 +9,7 @@ import {
 } from "react";
 import { getAppointments } from "../utils/Appointments";
 import { AppointmentType } from "../types/types";
+import { useRouter } from "next/navigation";
 
 // Define the shape of your context value
 interface AuthContextType {
@@ -62,6 +62,7 @@ interface AuthContextProviderProps {
 }
 
 export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
+  const router = useRouter();
   const [session, setSession] = useState<unknown>(undefined);
   const [appointments, setAppointments] = useState<AppointmentType[] | []>([]);
 
@@ -83,7 +84,7 @@ export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
     }
 
     if (data.session) {
-      redirect("/admin/dashboard");
+      router.push("/admin/dashboard");
     }
 
     return { error: undefined };
@@ -115,9 +116,9 @@ export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
 
     if (error) {
       console.error("there was an error: ", error);
+    } else {
+      router.push("/sign-in");
     }
-
-    redirect("/auth/sign-in");
   };
 
   //listen for changes
